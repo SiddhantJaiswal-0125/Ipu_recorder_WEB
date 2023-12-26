@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ipu_record/Screens/HomeScreen.dart';
-import 'package:ipu_record/Screens/LoginScreen.dart';
 
 void main() {
   runApp(const MyApp());
