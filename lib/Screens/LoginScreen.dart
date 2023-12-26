@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ipu_record/Helpers/LoginHelper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,7 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = false;
 
   String userName = "";
-  String passwords = "";
+  String password = "";
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -112,9 +113,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(10.0)),
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       userName = userNameController.text;
-                      passwords = passwordController.text;
+                      password = passwordController.text;
+
+
+                   await   LoginHelper.makeLoginCall(userName, password);
                     },
                     child: Text(
                       "Login",
