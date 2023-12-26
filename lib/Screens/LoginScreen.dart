@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ipu_record/Helpers/LoginHelper.dart';
+import 'package:ipu_record/Model/User.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  late User currentLoggedInUser;
   bool _isChecked = false;
 
   @override
@@ -117,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       userName = userNameController.text;
                       password = passwordController.text;
 
-
-                   await   LoginHelper.makeLoginCall(userName, password);
+                      currentLoggedInUser =
+                          await LoginHelper.makeLoginCall(userName, password);
                     },
                     child: Text(
                       "Login",
@@ -133,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-          
               ],
             ),
           ),
