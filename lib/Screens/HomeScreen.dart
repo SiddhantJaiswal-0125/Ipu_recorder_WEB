@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ipu_record/Helpers/CustomWidgets.dart';
 import 'package:ipu_record/Screens/LoginScreen.dart';
 
 
@@ -15,18 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return  Scaffold
       (
-        appBar: AppBar (title:   Text('IPU Insight',
-      style:  GoogleFonts.comicNeue(fontWeight: FontWeight.bold,color: Colors.white),
-      ),
-          backgroundColor: Colors.black,
-          actions: [
-            IconButton(
-                icon: Image.asset('resources/phoenix.png'),
-                onPressed: () => {
-
-                }),
-          ]
-        ),
+        appBar: CustomWidgets.CustomAppBar("IPU Insight"),
 
 
 
