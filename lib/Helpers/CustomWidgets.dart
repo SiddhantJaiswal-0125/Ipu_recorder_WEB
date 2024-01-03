@@ -63,4 +63,35 @@ class CustomWidgets {
     res.add(new Role("afas","oekroekr"));
     return res;
   }
+
+
+  static   Widget buildSummerCard1() {
+    // color = Color(0xffFC9B87) ;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+          borderRadius: BorderRadius.circular(10),
+          elevation: 10,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Text(
+                "text",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '43124',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              )
+            ],
+          )),
+    );
+  }
 }
