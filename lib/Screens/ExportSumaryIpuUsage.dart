@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ipu_record/Helpers/ExportSummaryIpuUsageHelper.dart';
+
+import '../Model/User.dart';
 
 class ExportSummaryIPUUsage extends StatefulWidget {
-  const ExportSummaryIPUUsage({super.key});
+
+  final User currentSessiion;
+  const ExportSummaryIPUUsage({super.key, required this.currentSessiion});
 
   @override
   State<ExportSummaryIPUUsage> createState() => _ExportSummaryIPUUsageState();
@@ -50,6 +55,10 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
         Center(
             child: TextButton(
               onPressed: () {
+                startDate = startDateController.text;
+                endDate = endDateController.text;
+
+                ExportSummaryIpuUsageHelper.triggerExportJob(widget.currentSessiion, startDate, endDate);
 
 
               },

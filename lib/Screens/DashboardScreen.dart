@@ -24,10 +24,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         Container(
           height: 15,
         ),
-        CustomWidgets.UserTile("User Name", "Siddhant"),
-        CustomWidgets.UserTile("Org ID", "afadgfdaf54548fdfas"),
+        CustomWidgets.UserTile("User Name", widget.currentUser.name.toString()),
+        CustomWidgets.UserTile("Org ID", widget.currentUser.orgUuid.toString()),
         CustomWidgets.UserTile(
-            "Registered Email", "sidjaiswal@informatica.com"),
+            "Registered Email", widget.currentUser.emails.toString()),
         SizedBox(
           height: 15,
         ),
@@ -73,7 +73,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           ],
         ),
         ipureprortview ==  IPUREPRORTVIEW.EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE ? Container():
-        ipureprortview == IPUREPRORTVIEW.EXPORT_SUMMARY_IPU_USAGE ? ExportSummaryIPUUsage():Container()
+        ipureprortview == IPUREPRORTVIEW.EXPORT_SUMMARY_IPU_USAGE ? ExportSummaryIPUUsage(currentSessiion: widget.currentUser,):Container()
 
       ]),
     );
