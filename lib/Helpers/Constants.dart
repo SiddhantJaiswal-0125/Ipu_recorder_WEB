@@ -3,6 +3,7 @@ class Constants
   static final  Uri USW1_AWS_POD1_LoginURL = Uri.parse("https://dm-us.informaticacloud.com/ma/api/v2/user/login");
 
   static final String Export_AllLinkedOrgReport = "public/core/v3/license/metering/ExportMeteringDataAllLinkedOrgsAcrossRegion";
+  static final String Check_Job_Status = "public/core/v3/license/metering/ExportMeteringData/";
 
 }
 

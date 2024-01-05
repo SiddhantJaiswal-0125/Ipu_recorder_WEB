@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ipu_record/Helpers/ExportSummaryIpuUsageHelper.dart';
+import 'package:ipu_record/Model/JobResponse.dart';
 
 import '../Model/User.dart';
 
@@ -17,6 +18,7 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
   String endDate = "";
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
+  late JobResponse jobResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +56,16 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
         ),
         Center(
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
                 startDate = startDateController.text;
                 endDate = endDateController.text;
 
-                ExportSummaryIpuUsageHelper.triggerExportJob(widget.currentSessiion, startDate, endDate);
+                 jobResponse= await ExportSummaryIpuUsageHelper.triggerExportJob(widget.currentSessiion, startDate, endDate);
+
+
+                   ExportSummaryIpuUsageHelper.checkJobStatus(widget.currentSessiion, jobResponse);
+
+
 
 
               },
