@@ -1,10 +1,14 @@
 
-import 'dart:typed_data';
 import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:html' as html;
+import 'package:http/http.dart' as http;
+
 
 import '../Model/JobResponse.dart';
 
@@ -86,7 +90,7 @@ class ServiceRepportIpuHelper
     }
     else {
       print("Final Status " + currentStatus.status);
-      saveApiResponseAsZip(currentSession, jobResponse);
+      saveApiResponseAsZipWeb(currentSession, jobResponse);
 
     }
     return jobResponse;
@@ -119,53 +123,53 @@ class ServiceRepportIpuHelper
     return job;
   }
 
+  static  Future<void> saveApiResponseAsZipWeb(User currentSession, JobResponse jobResponse) async {
 
-
-  static  Future<void> saveApiResponseAsZip(User currentSession, JobResponse jobResponse) async {
-    // Replace with your API endpoint
-
-    print("I am here at success ");
+    print("Inside SaveAPIResponseAsZip  WEB");
     print(jobResponse);
     String apiUrl = currentSession.serverUrl.toString()+"/"+Constants.Check_Job_Status+jobResponse.jobId+"/download";
 
     print("Download url : "+apiUrl);
 
     // Replace with your headers
-    Map<String, dynamic> headers = {
+    Map<String, String> headers = {
       'INFA-SESSION-ID': '${currentSession.icSessionId}',
       'Content-Type': 'application/json',
       // Add any other headers as needed
     };
 
-    // Create a Dio instance with headers
-    Dio dio = Dio(BaseOptions(headers: headers));
+    final http.Response response = await http.get(Uri.parse(apiUrl), headers: headers);
 
-    try {
-      // Make the API request
-      Response<List<int>> response = await dio.get<List<int>>(apiUrl,
-          options: Options(responseType: ResponseType.bytes));
+    if (response.statusCode == 200) {
+      // Convert the response body to bytes
 
-      // Check if the request was successful (status code 200)
-      if (response.statusCode == 200) {
-        // Convert the response bytes to Uint8List
-        Uint8List responseBody = Uint8List.fromList(response.data!);
+      print("RESPONSE CODE OK ---- 200 ");
+      List<int> bytes = response.bodyBytes;
 
-        // Create an Archive object and add a file entry
-        Archive archive = Archive()
-          ..addFile(ArchiveFile('response.csv', responseBody.length, responseBody));
+      // Create an Archive from the bytes
+      final Archive archive = ZipDecoder().decodeBytes(bytes);
 
-        // Create a zip file
-        File zipFile = File('response.zip');
-
-        // Write the zip file
-        zipFile.writeAsBytesSync( ZipEncoder().encode(archive)! );
-
-        print('Zip file saved at: ${zipFile.path}');
-      } else {
-        print('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
+      // Save the zip file
+      final html.Blob blob = html.Blob([Uint8List.fromList(bytes)], 'application/zip');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement(href: url)
+        ..target = 'web-save-zip'
+        ..download = 'example.zip';
+      html.document.body!.children.add(anchor);
+      anchor.click();
+      html.Url.revokeObjectUrl(url);
+      html.document.body!.children.remove(anchor);
+      print("FILE SAVED ");
+    } else {
+      // Handle error
+      print('Failed to download the zip file. Status code: ${response.statusCode}');
     }
+  }
+
+ static  List<int> _unzipFile(Archive archive) {
+    if (archive.length == 1 && archive[0] is ArchiveFile) {
+      return (archive[0] as ArchiveFile).content as List<int>;
+    }
+    throw Exception('Invalid archive structure');
   }
 }
