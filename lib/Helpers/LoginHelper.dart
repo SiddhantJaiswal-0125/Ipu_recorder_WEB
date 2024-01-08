@@ -13,7 +13,7 @@ class LoginHelper {
     print("USER NAME  : " + username);
     print("Password : " + password);
     var response = await http.post(
-      Constants.USW1_AWS_POD1_LoginURL,
+    Uri.parse( Constants.USW1_AWS_POD1_LoginURL.toString()),
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"

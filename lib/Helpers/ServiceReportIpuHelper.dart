@@ -20,8 +20,6 @@ class ServiceRepportIpuHelper
 
   static void invokeJob(User currentSession) async{
 
-
-
     JobResponse jobResponse = await triggerExportJob(currentSession, "2023-11-01", "2023-12-01");
     JobResponse jobResponse2 = await checkJobStatus( currentSession, jobResponse);
 
@@ -91,7 +89,6 @@ class ServiceRepportIpuHelper
     else {
       print("Final Status " + currentStatus.status);
       saveApiResponseAsZipWeb(currentSession, jobResponse);
-
     }
     return jobResponse;
 
