@@ -58,28 +58,32 @@ class ExportSummaryIpuUsageHelper
 
   static Future<JobResponse> checkJobStatus(User currentSession, JobResponse jobResponse)async
   {
-
-
     JobResponse currentStatus = await checkStatus(currentSession, jobResponse);
 
 
-      Future.delayed(Duration(seconds: 5), () async {
-      print("RECALL ");
-      currentStatus = await checkStatus(currentSession, jobResponse);
-    });
+
+
+      bool run = true;
+      while(run )
+      {
+
+        Future.delayed(Duration(seconds: 5), () async {
+          print("RECALL ");
+          currentStatus = await checkJobStatus(currentSession, jobResponse);
+          });
+
+        if(currentStatus.status !="SUCCESS")
+          run = false;
+      }
+
+
     print("Final Status " + currentStatus.status);
 
 
 
-      if(currentStatus.status == "SUCCESS")
-      {
+
           saveApiResponseAsZip(currentSession, jobResponse);
           return currentStatus;
-
-      }
-      else
-        return currentStatus;
-
 
   }
 

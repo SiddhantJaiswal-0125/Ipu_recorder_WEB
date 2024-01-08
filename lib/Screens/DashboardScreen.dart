@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipu_record/Helpers/Constants.dart';
 import 'package:ipu_record/Helpers/CustomWidgets.dart';
+import 'package:ipu_record/Helpers/ServiceReportIpuHelper.dart';
 import 'package:ipu_record/Model/User.dart';
 import 'package:ipu_record/Screens/ExportSumaryIpuUsage.dart';
 
@@ -58,6 +59,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                   backgroundColor: Colors.blueGrey),
               onPressed: () {
                 ipureprortview = IPUREPRORTVIEW.EXPORT_JOB_LEVEL_IPU_USAGE_FOR_PARTICULAR_SERVICE;
+
+                ServiceRepportIpuHelper.invokeJob(widget.currentUser);
                 setState(() {
 
                 });

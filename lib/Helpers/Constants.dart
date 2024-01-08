@@ -4,6 +4,10 @@ class Constants
 
   static final String Export_AllLinkedOrgReport = "public/core/v3/license/metering/ExportMeteringDataAllLinkedOrgsAcrossRegion";
   static final String Check_Job_Status = "public/core/v3/license/metering/ExportMeteringData/";
+  static final String Trigger_ServiceReport = "public/core/v3/license/metering/ExportServiceJobLevelMeteringData";
+
+  static final String MeterID_DI = "a2nB20h1o0lc7k3P9xtWS8";
+
 
 }
 
