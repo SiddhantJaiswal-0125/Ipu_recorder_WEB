@@ -5,7 +5,6 @@ import 'package:ipu_record/Model/JobResponse.dart';
 import '../Model/User.dart';
 
 class ExportSummaryIPUUsage extends StatefulWidget {
-
   final User currentSessiion;
   const ExportSummaryIPUUsage({super.key, required this.currentSessiion});
 
@@ -26,7 +25,7 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
       children: [
         TextField(
           controller: startDateController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: UnderlineInputBorder(),
             hintText: "YYYY-MM-DD",
             labelText: "Enter the Start Date",
@@ -37,12 +36,12 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
           ),
           textInputAction: TextInputAction.done,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         TextField(
           controller: endDateController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: UnderlineInputBorder(),
             hintText: "YYYY-MM-DD",
             labelText: "Enter the End Date",
@@ -51,26 +50,23 @@ class _ExportSummaryIPUUsageState extends State<ExportSummaryIPUUsage> {
           ),
           textInputAction: TextInputAction.done,
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Center(
             child: TextButton(
-              onPressed: () async {
-                startDate = startDateController.text;
-                endDate = endDateController.text;
+          onPressed: () async {
+            startDate = startDateController.text;
+            endDate = endDateController.text;
 
-                 jobResponse= await ExportSummaryIpuUsageHelper.triggerExportJob(widget.currentSessiion, startDate, endDate);
+            jobResponse = await ExportSummaryIpuUsageHelper.triggerExportJob(
+                widget.currentSessiion, startDate, endDate);
 
-
-                   ExportSummaryIpuUsageHelper.checkJobStatus(widget.currentSessiion, jobResponse);
-
-
-
-
-              },
-              child: Text("Submit"),
-            ))
+            ExportSummaryIpuUsageHelper.checkJobStatus(
+                widget.currentSessiion, jobResponse);
+          },
+          child: const Text("Submit"),
+        ))
       ],
     );
   }

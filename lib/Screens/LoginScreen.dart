@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ipu_record/Helpers/LoginHelper.dart';
 import 'package:ipu_record/Model/User.dart';
 import 'package:ipu_record/Screens/DashboardScreen.dart';
-import 'package:ipu_record/Screens/HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,12 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   late User currentLoggedInUser;
-  bool _isChecked = false;
   bool loading = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     passwordVisible = true;
   }
@@ -34,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return loading == true
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(
             color: Colors.deepOrange,
           ))
@@ -74,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 35),
                       TextField(
                         controller: userNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
                           hintText: "Enter your User Name",
                           labelText: "Username",
@@ -90,11 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: passwordVisible,
                         controller: passwordController,
                         decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
+                          border: const UnderlineInputBorder(),
                           hintText: "Password",
                           labelText: "Password",
                           // helperText: "Password must contain special character",
-                          helperStyle: TextStyle(color: Colors.green),
+                          helperStyle: const TextStyle(color: Colors.green),
                           suffixIcon: IconButton(
                             icon: Icon(passwordVisible
                                 ? Icons.visibility
@@ -114,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputAction: TextInputAction.done,
                       ),
                       const SizedBox(height: 25),
-                      Row(
+                      const Row(
                           //...
                           ),
                       const SizedBox(height: 30),
@@ -127,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             userName = userNameController.text;
                             password = passwordController.text;
 
-                            if (userName.length == 0 || password.length == 0) {
+                            if (userName.isEmpty || password.isEmpty) {
                               _showMyDialog(context);
 
                               // Navigator.pushReplacement(
@@ -145,9 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               setState(() {
                                 loading = false;
                               });
-
-
-                              //TODO:Add Error Handling here for Login Response
 
                               Navigator.pushReplacement(
                                 context,
@@ -186,11 +180,13 @@ class _LoginScreenState extends State<LoginScreen> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  Text('Alert', style: GoogleFonts.albertSans(color: Colors.red),),
+          title: Text(
+            'Alert',
+            style: GoogleFonts.albertSans(color: Colors.red),
+          ),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-
                 Text('Username or Password box cannot be empty'),
               ],
             ),
